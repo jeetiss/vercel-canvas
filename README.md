@@ -6,7 +6,7 @@ vercel + canvas v2.8 setup
 
 ### prepare steps
 
-1. add next `vercel-build` command
+1. add next `vercel-build` command to `package.json`
 
 ```json
 
