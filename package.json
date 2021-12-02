@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "dependencies": {
+    "canvas": "~2.8.0"
+  },
+  "scripts": {
+    "vercel-build": "yum install libuuid-devel libmount-devel && cp /lib64/{libuuid,libmount,libblkid}.so.1 node_modules/canvas/build/Release/"
+  }
+}

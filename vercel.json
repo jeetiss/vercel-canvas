@@ -1,0 +1,9 @@
+{
+  "version": 2,
+
+  "functions": {
+    "api/canvas.js": {
+      "includeFiles": "font/MPLUS1Code-VariableFont.ttf"
+    }
+  }
+}
