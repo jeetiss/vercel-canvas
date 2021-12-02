@@ -4,9 +4,7 @@
 
 vercel + canvas v2.8 setup
 
-https://vercel-canvas.vercel.app/api/canvas?name=hehe
-
-### steps
+### prepare steps
 
 1. add next `vercel-build` command
 
