@@ -1,7 +1,7 @@
-const { registerFont, createCanvas } = require("canvas");
+const { Canvas } = require("skia-canvas");
 
-module.exports = (req, res) => {
-  const canvas = createCanvas(300, 300);
+module.exports = async (req, res) => {
+  const canvas = new Canvas(300, 300);
   const ctx = canvas.getContext("2d");
 
   ctx.lineWidth = 10;
@@ -22,5 +22,6 @@ module.exports = (req, res) => {
   ctx.closePath();
   ctx.stroke();
 
-  canvas.createPNGStream().pipe(res);
+  res.setHeader("content-type", "image/png");
+  res.send(await canvas.toBuffer("png"));
 };

@@ -1,8 +1,9 @@
 {
   "private": true,
   "dependencies": {
-    "@napi-rs/canvas": "^0.1.15",
-    "canvas": "~2.8.0"
+    "@napi-rs/canvas": "~0.1.15",
+    "canvas": "~2.8.0",
+    "skia-canvas": "~0.9.27"
   },
   "scripts": {
     "vercel-build": "yum install libuuid-devel libmount-devel && cp /lib64/{libuuid,libmount,libblkid}.so.1 node_modules/canvas/build/Release/"
