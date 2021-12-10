@@ -1,6 +1,7 @@
 {
   "private": true,
   "dependencies": {
+    "@napi-rs/canvas": "^0.1.15",
     "canvas": "~2.8.0"
   },
   "scripts": {
