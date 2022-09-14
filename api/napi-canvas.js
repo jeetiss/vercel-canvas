@@ -1,6 +1,6 @@
 const { createCanvas, GlobalFonts } = require("@napi-rs/canvas");
 
-GlobalFonts.registerFromPath('../font/inter-medium.ttf', 'inter')
+GlobalFonts.registerFromPath('../assets/inter-medium.ttf', 'inter')
 
 module.exports = async (req, res) => {
   const canvas = createCanvas(300, 300);

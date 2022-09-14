@@ -10,3 +10,7 @@ vercel + `@napi-rs/canvas`
 2. use it in vercel lambda functions
 3. deploy it
 4. 🔥🔥🔥
+
+Forgot about lambda size problems
+
+![lambda-size](./assets/size.png)
