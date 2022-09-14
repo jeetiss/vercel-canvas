@@ -1,7 +1,7 @@
 {
   "private": true,
   "dependencies": {
-    "@napi-rs/canvas": "~0.1.15",
-    "skia-canvas": "~0.9.27"
+    "@napi-rs/canvas": "0.1.29"
   }
 }
+
