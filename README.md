@@ -1,6 +1,6 @@
 # vercel-canvas
 
-![vercel-canvas](https://vercel-canvas.vercel.app/api/napi-canvas?name=vercel)
+![vercel-canvas](https://vercel-canvas.vercel.app/api/napi-canvas?name=vercel%0Alove%0Acanvas)
 
 vercel + `@napi-rs/canvas`
 
