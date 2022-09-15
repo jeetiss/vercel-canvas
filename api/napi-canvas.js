@@ -1,19 +1,8 @@
 const { createCanvas, GlobalFonts } = require("@napi-rs/canvas");
-const webcrypto = require("crypto").webcrypto;
+const { webcrypto } = require("crypto");
+const { performance } = require("perf_hooks");
 
 GlobalFonts.registerFromPath("../assets/inter-medium.ttf", "inter");
-
-/**
- * @param {number} width
- * @param {number} height
- * @param {!CanvasPattern} pattern
- * @constructor
- */
-function Texture(width, height, pattern) {
-  this.width = width;
-  this.height = height;
-  this.pattern = pattern;
-}
 
 /**
  * Draws a texture into a canvas patterns.
@@ -27,8 +16,11 @@ function createTexture(width, height, repeat, draw) {
   let canvas = createCanvas(width, height);
   let ctx = canvas.getContext("2d");
   draw(ctx);
-  let pattern = ctx.createPattern(canvas, repeat ? "repeat" : "no-repeat");
-  return new Texture(width, height, pattern);
+  return ctx.createPattern(canvas, repeat ? "repeat" : "no-repeat");
+}
+
+function ease(x) {
+  return 1 - Math.sqrt(1 - Math.pow(x, 2));
 }
 
 /**
@@ -44,7 +36,7 @@ function createNoise(width, height, intensity) {
     let noise = new Uint8Array(width * height);
     webcrypto.getRandomValues(noise);
     for (let i = 0; i < pixels.data.length; i += 4) {
-      pixels.data[i + 3] = noise[i >> 2] * intensity;
+      pixels.data[i + 3] = ease((noise[i >> 2] * intensity) / 255) * 255;
     }
     ctx.putImageData(pixels, 0, 0);
   });
@@ -57,12 +49,15 @@ module.exports = async (req, res) => {
   const { name = "World" } = req.query;
 
   ctx.save();
-
-  const texture = createNoise(200, 200, 0.2);
-  ctx.fillStyle = texture.pattern;
-  ctx.fillRect(0, 0, 300, 300);
+  ctx.filter = "blur(25px)";
+  ctx.fillStyle = "rgba(122,122,0,0.5)";
+  ctx.beginPath();
+  ctx.arc(200, 175, 100, 0, 2 * Math.PI);
+  ctx.fill();
 
   ctx.restore();
+
+  ctx.save();
 
   ctx.font = "30px inter";
   ctx.rotate(0.2);
@@ -75,6 +70,24 @@ module.exports = async (req, res) => {
   ctx.lineTo(50, 102);
   ctx.lineTo(50 + text.width, 102);
   ctx.stroke();
+
+  ctx.restore();
+  ctx.save();
+
+  performance.mark("start");
+  // ctx.globalCompositeOperation = 'lighter';
+  ctx.fillStyle = createNoise(100, 100, 0.5);
+  ctx.fillRect(0, 0, 300, 300);
+  performance.measure("generate noise", "start");
+
+  ctx.restore();
+
+  // Pull out all of the measurements.
+  console.log(performance.getEntriesByType("measure"));
+
+  // Finally, clean up the entries.
+  performance.clearMarks();
+  performance.clearMeasures();
 
   res.setHeader("content-type", "image/png");
   res.send(await canvas.encode("png"));
