@@ -1,5 +1,6 @@
 {
   "private": true,
+  "type": "module",
   "dependencies": {
     "@napi-rs/canvas": "0.1.29"
   }

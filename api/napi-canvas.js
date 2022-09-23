@@ -1,6 +1,6 @@
-const { createCanvas, GlobalFonts } = require("@napi-rs/canvas");
-const { webcrypto } = require("crypto");
-const { performance } = require("perf_hooks");
+import { createCanvas, GlobalFonts } from "@napi-rs/canvas";
+import { webcrypto } from "node:crypto";
+import { performance } from "node:perf_hooks";
 
 GlobalFonts.registerFromPath("../assets/inter-medium.ttf", "inter");
 
@@ -42,7 +42,7 @@ function createNoise(width, height, intensity) {
   });
 }
 
-module.exports = async (req, res) => {
+export default async (req, res) => {
   const canvas = createCanvas(300, 300);
   const ctx = canvas.getContext("2d");
 
