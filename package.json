@@ -2,7 +2,9 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@napi-rs/canvas": "0.1.29"
+    "@napi-rs/canvas": "0.1.30"
+  },
+  "devDependencies": {
+    "@vercel/node": "^2.5.21"
   }
 }
-

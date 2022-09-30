@@ -5,13 +5,10 @@ import { performance } from "node:perf_hooks";
 GlobalFonts.registerFromPath("../assets/inter-medium.ttf", "inter");
 
 /**
- * Draws a texture into a canvas patterns.
- * @param {number} width
- * @param {number} height
- * @param {boolean} repeat
- * @param {function(!CanvasRenderingContext2D)} draw
- * @return {!Texture}
+ * @typedef {import('@vercel/node').VercelRequest} Request
+ * @typedef {import('@vercel/node').VercelResponse} Response
  */
+
 function createTexture(width, height, repeat, draw) {
   let canvas = createCanvas(width, height);
   let ctx = canvas.getContext("2d");
@@ -23,13 +20,6 @@ function ease(x) {
   return 1 - Math.sqrt(1 - Math.pow(x, 2));
 }
 
-/**
- * Generates a noise texture.
- * @param {number} width
- * @param {number} height
- * @param {number} intensity
- * @return {!Texture}
- */
 function createNoise(width, height, intensity) {
   return createTexture(width, height, true, (ctx) => {
     let pixels = ctx.createImageData(width, height);
@@ -41,6 +31,11 @@ function createNoise(width, height, intensity) {
     ctx.putImageData(pixels, 0, 0);
   });
 }
+
+/**
+ * @param req {Request}
+ * @param res {Response}
+ */
 
 export default async (req, res) => {
   const canvas = createCanvas(300, 300);
@@ -89,6 +84,15 @@ export default async (req, res) => {
   performance.clearMarks();
   performance.clearMeasures();
 
-  res.setHeader("content-type", "image/png");
-  res.send(await canvas.encode("png"));
+  const acceptType = req.headers['accept'];
+
+  let format = 'png'
+  if (acceptType.includes('image/avif')) {
+    format = 'avif'
+  } else if (acceptType.includes('image/webp')) {
+    format = 'webp'
+  }
+
+  res.setHeader("content-type", `image/${format}`);
+  res.send(await canvas.encode(format));
 };
