@@ -1,0 +1,13 @@
+{
+  "headers": [
+    {
+      "source": "/api/napi-canvas.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "max-age=31536000, immutable"
+        }
+      ]
+    }
+  ]
+}
