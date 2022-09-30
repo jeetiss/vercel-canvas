@@ -1,7 +1,7 @@
 {
   "headers": [
     {
-      "source": "/api/napi-canvas.js",
+      "source": "/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
