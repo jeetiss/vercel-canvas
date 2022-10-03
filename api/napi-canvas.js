@@ -44,8 +44,15 @@ export default async (req, res) => {
   const { name = "World" } = req.query;
 
   ctx.save();
+
+  ctx.fillStyle = "white";
+  ctx.fillRect(0,0, 300, 300);
+
+  ctx.restore();
+
+  ctx.save();
   ctx.filter = "blur(25px)";
-  ctx.fillStyle = "rgba(122,122,0,0.5)";
+  ctx.fillStyle = "rgba(123,22,0,0.5)";
   ctx.beginPath();
   ctx.arc(200, 175, 100, 0, 2 * Math.PI);
   ctx.fill();
