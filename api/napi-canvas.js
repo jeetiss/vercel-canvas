@@ -84,15 +84,8 @@ export default async (req, res) => {
   performance.clearMarks();
   performance.clearMeasures();
 
-  const acceptType = req.headers['accept'];
-
-  let format = 'png'
-  if (acceptType.includes('image/avif')) {
-    format = 'avif'
-  } else if (acceptType.includes('image/webp')) {
-    format = 'webp'
-  }
+  const format = "jpeg";
 
   res.setHeader("content-type", `image/${format}`);
-  res.send(await canvas.encode(format));
+  res.send(await canvas.encode(format, 80));
 };
